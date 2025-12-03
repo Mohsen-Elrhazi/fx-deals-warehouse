@@ -24,6 +24,8 @@ services:
       - "8081:80"
     depends_on:
       - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
   app:
     build: .
@@ -40,3 +42,4 @@ services:
 
 volumes:
   fx_deals_db_data:
+  pgadmin_data:
