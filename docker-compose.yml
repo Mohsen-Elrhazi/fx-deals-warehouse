@@ -39,6 +39,8 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
     depends_on:
       - postgres
+    volumes:
+      - ./app_logs:/app/logs
 
 volumes:
   fx_deals_db_data:

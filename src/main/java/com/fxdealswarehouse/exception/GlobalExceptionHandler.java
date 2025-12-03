@@ -1,5 +1,6 @@
 package com.fxdealswarehouse.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
@@ -33,6 +35,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DealNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleDealNotFoundException(DealNotFoundException ex) {
+        log.error("Deal not found: {}", ex.getMessage());
+
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.NOT_FOUND.value());
         response.put("error", "Deal Not Found");
@@ -42,6 +46,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DealAlreadyExistsException.class)
     public ResponseEntity<Map<String, Object>> handleDealAlreadyExistsException(DealAlreadyExistsException ex) {
+        log.warn("Deal already exists: {}", ex.getMessage());
+
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.CONFLICT.value());
         response.put("error", "Deal Already Exists");

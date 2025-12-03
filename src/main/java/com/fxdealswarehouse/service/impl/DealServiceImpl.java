@@ -9,6 +9,7 @@ import com.fxdealswarehouse.model.Deal;
 import com.fxdealswarehouse.repository.DealRepository;
 import com.fxdealswarehouse.service.DealService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.rmi.AlreadyBoundException;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DealServiceImpl implements DealService {
     private final DealRepository dealRepository;
     private final DealMapper dealMapper;
@@ -29,22 +31,30 @@ public class DealServiceImpl implements DealService {
 
         Deal deal = dealMapper.toEntity(dealRequestDTO);
         Deal savedDeal = dealRepository.save(deal);
+        log.info("Deal with ID '{}' created successfully", savedDeal.getDealId());
+
         return dealMapper.toResponseDTO(savedDeal);
     }
 
     @Override
     public DealResponseDTO getDealByDealId(String dealId) {
         Deal deal = dealRepository.findByDealId(dealId)
-                .orElseThrow(() -> new DealNotFoundException("Deal with ID '" + dealId + "' not found."));
+                .orElseThrow(() -> {
+                    return new DealNotFoundException("Deal with ID '" + dealId + "' not found.");
+                });
 
+        log.info("Deal with ID '{}' retrieved successfully", dealId);
         return dealMapper.toResponseDTO(deal);
     }
 
+
     @Override
     public List<DealResponseDTO> getAllDeals() {
-        return dealRepository.findAll()
+        List<DealResponseDTO> deals = dealRepository.findAll()
                 .stream()
                 .map(dealMapper::toResponseDTO)
                 .toList();
+        log.info("{} deals retrieved", deals.size());
+        return deals;
     }
 }
