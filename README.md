@@ -162,3 +162,14 @@ src/
 │    └── dto/             → request and response DTOs
 │    └── exception/       → Custom exceptions and handlers
 └── test/java/...         → Unit tests
+
+## 🛠 Makefile Commands
+
+This project includes a Makefile to simplify development operations:
+
+- `make build` – Build the project
+- `make run` – Run Spring Boot locally
+- `make up` – Start Docker containers
+- `make down` – Stop Docker containers
+- `make test` – Run unit tests
+- `make logs` – Show application logs
