@@ -111,26 +111,31 @@ Once the application is running, access the API documentation:
  http://localhost:8080/swagger-ui/index.html
 ```
 ## REST API Endpoints
-### Deals
-Method	Endpoint	                                Description
-POST	http://localhost:8080/api/deals	            Create a new FX deal
-GET	    http://localhost:8080/api/deals     	    Retrieve all deals
-GET	    http://localhost:8080/api/deals/{dealId}	Retrieve a deal by its unique dealId
-### Example – Create Deal
- #### Request
 
-POST http://localhost:8080/api/deals
+### Deals
+
+| Method | Endpoint                                   | Description                           |
+|--------|---------------------------------------------|----------------------------------------|
+| POST   | http://localhost:8080/api/deals             | Create a new FX deal                   |
+| GET    | http://localhost:8080/api/deals             | Retrieve all deals                     |
+| GET    | http://localhost:8080/api/deals/{dealId}    | Retrieve a deal by its unique dealId   |
+
+### Example – Create Deal
+
+#### Request
+
+POST `http://localhost:8080/api/deals`  
 Content-Type: application/json
+
 ```json
 {
-"dealId": "D004",
-"fromCurrencyIsoCode": "USD",
-"toCurrencyIsoCode": "EUR",
-"dealTimestamp": "2025-12-02T21:20:28",
-"dealAmount": 1000.50
+  "dealId": "D004",
+  "fromCurrencyIsoCode": "USD",
+  "toCurrencyIsoCode": "EUR",
+  "dealTimestamp": "2025-12-02T21:20:28",
+  "dealAmount": 1000.50
 }
 ```
-
 
 #### Response (201 Created)
 ```json
@@ -159,6 +164,7 @@ Test files are located in:
 src/test/java/com/fxdealswarehouse/
 
 ## Project Structure (Simplified)
+```bash
 src/
 ├── main/java/com/fxdealswarehouse/
 │    ├── controller/      → REST controllers
@@ -169,6 +175,7 @@ src/
 │    └── dto/             → request and response DTOs
 │    └── exception/       → Custom exceptions and handlers
 └── test/java/...         → Unit tests
+```
 
 ##  Makefile Commands
 
